@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ICreateCustomer } from '@modules/customers/domain/models/ICreateCustomer';
-import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
+import { ICustomersRepository } from '../ICustomersRepository';
 import Customer from '@modules/customers/infra/typeorm/entities/Customer';
+import { ICreateCustomer } from '../../models/ICreateCustomer';
 import { ICustomerPaginate } from '../../models/ICustomerPaginate';
 
-class FakeCustomersRepository implements ICustomersRepository {
+export default class FakeCustomersRepository implements ICustomersRepository {
   private customers: Customer[] = [];
 
   public async create({ name, email }: ICreateCustomer): Promise<Customer> {
@@ -29,7 +29,9 @@ class FakeCustomersRepository implements ICustomersRepository {
     return customer;
   }
 
-  public async remove(customer: Customer): Promise<void> {}
+  public async remove(customer: Customer): Promise<void> {
+    console.log('customer', customer);
+  }
 
   public async findAll(): Promise<Customer[] | undefined> {
     return undefined;
@@ -65,5 +67,3 @@ class FakeCustomersRepository implements ICustomersRepository {
     return customer;
   }
 }
-
-export default FakeCustomersRepository;
